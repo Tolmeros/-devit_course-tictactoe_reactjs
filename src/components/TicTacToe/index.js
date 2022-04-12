@@ -1,6 +1,5 @@
 import React, {useCallback, useMemo, useState} from 'react';
 import styles from './styles.module.css';
-import Cell from "./Cell";
 import Table from "./Table";
 
 import {useDispatch, useSelector} from 'react-redux';
@@ -71,7 +70,7 @@ const TicTacToe = () => {
     dispatch({type:'TURN_TOGGLE'});
 
     setCells(squares);
-  }, [cells, isDraw, winner]);
+  }, [cells, isDraw, winner, turn, dispatch]);
 
   const handleRestart = useCallback(
     () => setCells(Array(9).fill('')),
