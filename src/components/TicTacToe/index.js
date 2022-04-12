@@ -3,6 +3,8 @@ import styles from './styles.module.css';
 import Cell from "./Cell";
 import Table from "./Table";
 
+import {useDispatch, useSelector} from 'react-redux';
+
 const combos = {
   horizontal: [
     [0, 1, 2],
@@ -37,7 +39,9 @@ const checkForWinner = (squares) => {
 };
 
 const TicTacToe = () => {
-  const [turn, setTurn] = useState('x');
+  const dispatch = useDispatch();
+  const turn = useSelector(state => state.turn);
+
   const [cells, setCells] = useState(Array(9).fill(''));
 
   const turnCount = useMemo(() => cells.reduce((count, cell) => {
@@ -63,13 +67,8 @@ const TicTacToe = () => {
 
     let squares = [...cells];
 
-    if (turn === 'x') {
-      squares[num] = 'x';
-      setTurn('o');
-    } else {
-      squares[num] = 'o';
-      setTurn('x');
-    }
+    squares[num] = turn;
+    dispatch({type:'TURN_TOGGLE'});
 
     setCells(squares);
   }, [cells, isDraw, winner]);

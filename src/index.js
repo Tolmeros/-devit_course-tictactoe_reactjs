@@ -4,9 +4,35 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+
+const defaultState = {
+  turn: 'x',
+}
+
+const reducer = (state = defaultState, action) => {
+  switch (action.type) {
+    case 'TURN_X':
+      return {...state, turn: 'x'};
+    case 'TURN_O':
+      return {...state, turn: 'o'};
+    case 'TURN_TOGGLE':
+      return (state.turn === 'x') ? {...state, turn: 'o'} :
+        {...state, turn: 'x'};
+    default:
+      return state;
+  }
+
+}
+
+const store = createStore(reducer);
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>,
   </React.StrictMode>,
   document.getElementById('root')
 );
