@@ -6,3 +6,10 @@ export const nextTurn = createAction(
   'TURN', 
   (player) => player
 );
+
+export const makeTurn = createAction(
+  'CHANGE',
+  (turn) => turn
+);
+
+export const clearField = createAction('CLEAR');

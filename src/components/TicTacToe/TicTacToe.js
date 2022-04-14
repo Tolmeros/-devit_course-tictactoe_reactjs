@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import styles from './styles.module.css';
 import Table from "./Table";
 
@@ -35,9 +35,7 @@ const checkForWinner = (squares) => {
   return null;
 };
 
-const TicTacToe = ({turnToggle, turn, nextTurn}) => {
-  const [cells, setCells] = useState(Array(9).fill(''));
-
+const TicTacToe = ({turnToggle, turn, nextTurn, clearField, makeTurn, cells}) => {
   const turnCount = useMemo(() => cells.reduce((count, cell) => {
     return cell ? count + 1 : count;
   }, 0), [cells]);
@@ -59,20 +57,17 @@ const TicTacToe = ({turnToggle, turn, nextTurn}) => {
       return;
     }
 
-    let squares = [...cells];
-
-    squares[num] = turn;
+    makeTurn({index: num, player: turn});
     turnToggle();
 
-    setCells(squares);
-  }, [cells, isDraw, winner, turn, turnToggle]);
+  }, [cells, isDraw, makeTurn, turn, turnToggle, winner]);
 
   const handleRestart = useCallback(
     () => {
       nextTurn('x');
-      setCells(Array(9).fill(''));
+      clearField();
     },
-    [nextTurn]
+    [nextTurn, clearField]
   );
 
   return (
