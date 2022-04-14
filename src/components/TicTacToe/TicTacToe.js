@@ -35,7 +35,7 @@ const checkForWinner = (squares) => {
   return null;
 };
 
-const TicTacToe = ({turnToggle, turn, makeTurn}) => {
+const TicTacToe = ({turnToggle, turn, nextTurn}) => {
   const [cells, setCells] = useState(Array(9).fill(''));
 
   const turnCount = useMemo(() => cells.reduce((count, cell) => {
@@ -69,10 +69,10 @@ const TicTacToe = ({turnToggle, turn, makeTurn}) => {
 
   const handleRestart = useCallback(
     () => {
-      makeTurn('x');
+      nextTurn('x');
       setCells(Array(9).fill(''));
     },
-    [makeTurn]
+    [nextTurn]
   );
 
   return (

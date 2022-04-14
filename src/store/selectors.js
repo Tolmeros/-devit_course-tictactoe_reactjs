@@ -1,5 +1,5 @@
 import {createSelector} from 'reselect';
 
-const state = (state) => state;
+const selectTurn = (state) => state.turn;
 
-export const turn = createSelector(state, (state) => state.turn);
+export const turn = createSelector(selectTurn, (state) => state.turn);
